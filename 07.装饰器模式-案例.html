@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <button id="filmbtn">万里归途</button>
+  <button id="send">ajax请求</button>
+
+  <script>
+    /* 装饰器模式：能够更好的对已有功能进行扩展，这样不会更改原有的代码，对其他业务产生影响，这样方便我们在较少的改动下对软件功能进行扩展 */
+    Function.prototype.before = function (beforeFun) {
+      var _this = this;
+      return function () {
+        // 先进行前置函数调用
+        beforeFun.apply(this, arguments)
+
+        // 执行原来的函数
+        return _this.apply(this, arguments)
+      }
+    }
+
+    Function.prototype.after = function (afterFun) {
+      var _this = this;
+      return function () {
+        // 先进行前置函数调用
+        var result = _this.apply(this.arguments)
+        afterFun.apply(this, arguments)
+        // 执行原来的函数
+        return result
+      }
+    }
+
+    function log() {
+      console.log('上传uv，pv数据');
+      setTimeout(() => {
+        console.log("上传uv pv数据成功");
+      }, 1000);
+    }
+    function render() {
+      console.log('页面处理逻辑');
+    }
+
+    render = render.before(log)
+
+    filmbtn.onclick = function () {
+      render()
+    }
+
+
+    function ajax(url, method, params) {
+      console.log(url, method, params);
+    }
+
+    ajax1 = ajax.before((url, method, params) => {
+      params.token = "aaaaaaadafasfddasfdasfd"
+    })
+
+    send.onclick = function () {
+
+      ajax1("/api", 'post', { name: "codexgh" })
+    }
+  </script>
+</body>
+
+</html>

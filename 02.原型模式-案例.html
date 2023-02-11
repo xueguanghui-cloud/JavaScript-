@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    ul li {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .header {
+      margin: 0;
+      padding: 0;
+      display: flex;
+
+    }
+
+    .box {
+      margin: 0;
+      padding: 0;
+    }
+
+    .header li {
+      width: 80px;
+      height: 30px;
+      background-color: yellow;
+      text-align: center;
+      line-height: 30px;
+      border: 1px solid #fff;
+      box-sizing: border-box;
+      cursor: pointer;
+    }
+
+    .header li.active {
+      background-color: red;
+    }
+
+    .box li.active {
+      display: block;
+    }
+
+    .box {
+      width: 480px;
+      height: 400px;
+      text-align: center;
+      line-height: 400px;
+      font-size: 40px;
+      font-weight: bolder;
+    }
+
+    .box li {
+      width: 100%;
+      height: 100%;
+      display: none;
+      background-color: yellow;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container1">
+    <ul class="header">
+      <li class="active">1</li>
+      <li>2</li>
+      <li>3</li>
+      <li>4</li>
+      <li>5</li>
+      <li>6</li>
+    </ul>
+    <ul class="box">
+      <li class="active">1 1 1</li>
+      <li>2 2 2</li>
+      <li>3 3 3</li>
+      <li>4 4 4</li>
+      <li>5 5 5</li>
+      <li>6 6 6</li>
+    </ul>
+  </div>
+
+  <div class="container2">
+    <ul class="header">
+      <li class="active">1</li>
+      <li>2</li>
+      <li>3</li>
+      <li>4</li>
+      <li>5</li>
+      <li>6</li>
+    </ul>
+    <ul class="box">
+      <li class="active">1 1 1</li>
+      <li>2 2 2</li>
+      <li>3 3 3</li>
+      <li>4 4 4</li>
+      <li>5 5 5</li>
+      <li>6 6 6</li>
+    </ul>
+  </div>
+
+  <!-- <script>
+    /* 构造函数写法 */
+    function Tabs(selector, type) {
+      this.type = type;
+      this.selector = document.querySelector(selector);
+      this.headerItems = this.selector.querySelectorAll(".header li");
+      this.boxItems = this.selector.querySelectorAll(".box li");
+      this.chage();
+    }
+
+    Tabs.prototype.chage = function() {
+      for(let i = 0; i < this.headerItems.length; i++) {
+        this.headerItems[i].addEventListener(this.type, () => {
+          for(let m = 0; m < this.headerItems.length; m++) {            
+            this.headerItems[m].classList.remove("active")
+            this.boxItems[m].classList.remove("active")         
+            this.headerItems[i].classList.add("active")
+            this.boxItems[i].classList.add("active")
+          }
+          
+         
+        }, false)
+      }
+    }
+
+    new Tabs(".container1", "click")
+    new Tabs(".container2", "mouseenter")
+  </script> -->
+
+  <script>
+    /* ES6 类模式 */
+    class Tabs {
+      constructor(selector, type) {
+        this.type = type;
+        this.selector = document.querySelector(selector);
+        this.headerItems = this.selector.querySelectorAll(".header li");
+        this.boxItems = this.selector.querySelectorAll(".box li");
+        this.change();
+      }
+      change() {
+        for (let i = 0; i < this.headerItems.length; i++) {
+          this.headerItems[i].addEventListener(this.type, () => {
+            for (let m = 0; m < this.headerItems.length; m++) {
+              this.headerItems[m].classList.remove("active")
+              this.boxItems[m].classList.remove("active")
+              this.headerItems[i].classList.add("active")
+              this.boxItems[i].classList.add("active")
+            }
+          }, false)
+        }
+      }
+
+    }
+
+    new Tabs(".container1", "click")
+    new Tabs(".container2", "mouseenter")
+  </script>
+</body>
+
+</html>

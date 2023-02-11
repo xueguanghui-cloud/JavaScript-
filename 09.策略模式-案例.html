@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    li {
+      display: flex;
+      list-style: none;
+      justify-content: space-between;
+    }
+
+    .reditem {
+      background-color: red;
+    }
+
+    .greenitem {
+      background-color: green;
+    }
+
+    .yellowitem {
+      background-color: yellow;
+    }
+  </style>
+</head>
+
+<body>
+
+  <ul id="mylist"></ul>
+  <script>
+    var list = [
+      {
+        title: '男人看了沉默',
+        type: 1
+      },
+      {
+        title: "震惊",
+        type: 2
+      },
+      {
+        title: "kerwin来了",
+        type: 3
+      },
+      {
+        title: "铁锤来了",
+        type: 2
+      }
+    ]
+    /* mylist.innerHTML = list.map(item => {
+      if (item.type === 1) {
+        return `
+        <li>
+          <div>${item.title}</div>
+          <div class="yellowitem">审核中</div>
+        </li> 
+        `
+      } else if (item.type === 2) {
+        return `
+        <li>
+          <div>${item.title}</div>
+          <div class="greenitem">已通过</div>
+        </li> 
+        `
+      } else if (item.type === 3) {
+        return `
+        <li>
+          <div>${item.title}</div>
+          <div class="reditem">已驳回</div>
+        </li> 
+        `
+      }
+    }).join("") */
+
+
+    // 使用策略模式
+    var obj = {
+      1: {
+        content: "审核中",
+        className: "yellowitem"
+      },
+      2: {
+        content: "已通过",
+        className: "greenitem"
+      },
+      3: {
+        content: "已驳回",
+        className: "reditem"
+      },
+    }
+
+    mylist.innerHTML = list.map(item => {
+      return `
+        <li>
+          <div>${item.title}</div>
+          <div class="${obj[item.type].className}">${obj[item.type].content}</div>
+        </li> 
+        `
+    }).join("") 
+  </script>
+</body>
+
+</html>
